@@ -1,0 +1,16 @@
+{% if order_list %} 
+<ul>
+    {% for order in order_list %}   <!--this is where the front end will be developed this is currently debug stuff-->
+    <li>{{ order.starters }}
+    </li>
+    <li>
+        {{ order.mains }}
+    </li> 
+    <li>
+        {{ order.deserts }}
+    </li><br>
+    {% endfor %}
+</ul>
+{% else %}
+    <p>No orders to view.</p>
+{% endif %}
