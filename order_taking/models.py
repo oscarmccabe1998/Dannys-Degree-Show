@@ -2,7 +2,7 @@ from django.db import models
 import datetime
 from django.utils import timezone
    
-#admin oscarm pwd dannysdegreeshow
+
 class Order(models.Model):  #class to pass data to database 
     class TableChoice(models.IntegerChoices):   #defining tables for the orders 
         Table1 = 1
