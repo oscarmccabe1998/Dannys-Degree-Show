@@ -2,7 +2,7 @@ from django.db import models
 import datetime
 from django.utils import timezone
    
-
+#admin oscarm pwd dannysdegreeshow
 class Order(models.Model):  #class to pass data to database 
     class TableChoice(models.IntegerChoices):   #defining tables for the orders 
         Table1 = 1
@@ -61,7 +61,7 @@ class Order(models.Model):  #class to pass data to database
     )
 
 
-    Date = models.DateTimeField(auto_now_add=True)      #all feilds that will be in the database table
+    Date = models.DateTimeField(default=datetime.datetime.now)      #all feilds that will be in the database table
     ref = models.CharField(max_length=200, default="n/a")
     table_number = models.IntegerField(choices=TableChoice.choices, default='1')
     starters = models.CharField(max_length=25, choices=STARTER)

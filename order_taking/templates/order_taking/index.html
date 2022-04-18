@@ -1,7 +1,17 @@
 {% if order_list %} 
 <ul>
     {% for order in order_list %}   <!--this is where the front end will be developed this is currently debug stuff-->
-    <li>{{ order.starters }}
+    <li>
+        {{ order.table_number }}
+    </li>
+    <li>
+        {{ order.Date }}
+    </li>
+    <li>
+        {{ order.ref }}
+    </li>
+    <li>
+        {{ order.starters }}
     </li>
     <li>
         {{ order.mains }}
