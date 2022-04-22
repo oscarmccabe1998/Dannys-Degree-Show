@@ -2,7 +2,6 @@ from django.db import models
 import datetime
 from django.utils import timezone
    
-
 class Order(models.Model):  #class to pass data to database 
     class TableChoice(models.IntegerChoices):   #defining tables for the orders 
         Table1 = 1
@@ -21,7 +20,6 @@ class Order(models.Model):  #class to pass data to database
         Table14 = 14
         Table15 = 15
         Table16 = 16
-        Table17 = 17
 
     STARTER = (
         ('Soup of the day', 'Soup of the day'),     #Menu options to make data entry on the back end easier 
