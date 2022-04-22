@@ -27,10 +27,10 @@ def index(request):
     order_list.append(starts)
     order_list.append(mains)
     order_list.append(dessert)
-    #print(starts)
-    #print(mains)
-    #print(dessert)
-    print(order_list)
+    print(starts)
+    print(mains)
+    print(dessert)
+    #print(order_list)
     context = {
         'order_list': order_list
     }
