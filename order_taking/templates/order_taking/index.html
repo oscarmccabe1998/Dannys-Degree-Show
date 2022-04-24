@@ -1,8 +1,8 @@
 {% if order_list %} 
 <ul>
-    {% for order in order_list %}   <!--this is where the front end will be developed this is currently debug stuff-->
+    {% for order in order_list %}   
     <li>
-        {{ order.table_number }}
+        {{ order_list }}
     </li>
     <li>
         {{ order.Date }}
@@ -24,3 +24,23 @@
 {% else %}
     <p>No orders to view.</p>
 {% endif %}
+
+{% if starts %} 
+<li>
+    {{ starts.starter }}
+</li>
+{% endif %}
+{% if table %} 
+<li>
+    {{ table }}
+</li>
+{% endif %} 
+{% if checkstart %} 
+  {% for start in checkstart %}
+        <li>
+            {{ checkstart.starter }}
+        </li>
+        {% endfor %} 
+        {% else %}
+        <p>No orders to view.</p>
+    {% endif %}
