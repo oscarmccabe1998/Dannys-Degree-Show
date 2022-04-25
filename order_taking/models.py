@@ -2,6 +2,7 @@ from django.db import models
 import datetime
 from django.utils import timezone
 
+#admin oscarm pwd dannysdegreeshow
 
 class Order(models.Model):  #class to pass data to database 
     class TableChoice(models.IntegerChoices):   #defining tables for the orders 
@@ -62,11 +63,15 @@ class Order(models.Model):  #class to pass data to database
 
     Date = models.DateTimeField(default=datetime.datetime.now)      #all feilds that will be in the database table
     ref = models.CharField(max_length=200, blank=True)
-    table_number = models.IntegerField(choices=TableChoice.choices, default='1')
-    starters = models.CharField(max_length=25, choices=STARTER)
-    mains = models.CharField(max_length=28, choices=MAIN)
-    deserts = models.CharField(max_length=22, choices=DESERT)
+    table_number = models.IntegerField(choices=TableChoice.choices, default='1', primary_key=True)
+    starters = models.CharField(max_length=300)
+    starter_ready = models.BooleanField(default=False)
+    mains = models.CharField(max_length=300)
+    mains_ready = models.BooleanField(default=False)
+    deserts = models.CharField(max_length=300)
+    deserts_ready = models.BooleanField(default=False)
     waiting_for_service = models.BooleanField(default=False)
+    pending = models.BooleanField(default=False)
 
     def __str__(self):
         return self.mains

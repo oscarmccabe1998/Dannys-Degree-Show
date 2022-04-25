@@ -2,7 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 from .models import Order, starter, table
-
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import redirect
 
 def index(request):
     orders = Order.objects.all()
@@ -31,24 +32,46 @@ def index(request):
     #        starts.append(q.starters)
     #        table = q.table_number.table_number
     #        temp = temp + q.starters + ", "
-    for order in range(x):
-        temp = starter.objects.filter(table_number= order)
-        y = len(temp)
-        print(y)
+    #check = Order.objects.filter(pending=False).count()
+    #if check < 6:
+    #    Order.objects.filter
+    #print(check)
+    query = Order.objects.filter(pending=False)
+    for q in query:
+        order_list.append(q)
+    #for order in range(x):
+        #temp1 = ""
+        #temp = starter.objects.filter(table_number= order)
+    #    query = Order.objects.filter(table_number=order)
+     #   print(query)
+      #  for q in query:
+       #     print(q)
+            #if q.filter(waiting_for_service = False):
+        #    order_list.append(q)
+        #y = len(temp)
+        #print(y)
 
-        for test in temp:
-            order_list.append(test.starters)
-        print(order_list)
-    for item in order_list:
-        checkstart.append(item)
-    print(checkstart)
+        #for test in temp:
+        #    order_list.append(test.starters)
+        #    for order in order_list:
+        #        temp1 = order + ", "
+               
+        #    starts.append(temp1)
+
+
+        #print(order_list)
+        #    print(temp1)
+        #    checkstart.append(starts)
+    #for item in order_list:
+    #    checkstart.append(item)
+    #print(checkstart)
         #order_list.append(checkstart.starters)
 
             #tablenum = table.objects.filter(table_number = table)
             #print(tablenum.table_number)
     #print(temp)
     #order1 = []
-    
+    #print(starts)
     #order1.append(starter.objects.filter(table_number = 1))
     #order_list.append(order1)
     #print(order_list)
@@ -92,8 +115,18 @@ def index(request):
     #print(order_list)
     return render(request, 'order_taking/index.html', context)
     
+def update_starter(request, table_number):
+    starter = Order.objects.get(pk=table_number)
+    response = Order.objects.filter(pk = table_number).update(starter_ready=True)
+    return redirect(index)
 
+def update_main(request, table_number):
+    main = Order.objects.get(pk=table_number)
+    response = Order.objects.filter(pk = table_number).update(mains_ready=True)
+    return redirect(index)
 
-def detail(request, order_id):
-    return HttpResponse("You are looking at Order %S." % order_id)
+def update_desert(request, table_number):
+    desert = Order.objects.get(pk=table_number)
+    response = Order.objects.filter(pk = table_number).update(deserts_ready=True)
+    return redirect(index)
 

@@ -1,8 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    </head>
+    <body>
 {% if order_list %} 
 <ul>
     {% for order in order_list %}   
     <li>
-        {{ order_list }}
+        {{ order.table_number }}
     </li>
     <li>
         {{ order.Date }}
@@ -12,35 +18,22 @@
     </li>
     <li>
         {{ order.starters }}
+        
+    <a href="{% url 'update_starter' order.table_number %}">Serve</a>
     </li>
     <li>
         {{ order.mains }}
+        <a href="{% url 'update_main' order.table_number %}">Serve</a>
     </li> 
     <li>
         {{ order.deserts }}
+        <a href="{% url 'update_desert' order.table_number %}">Serve</a>
     </li><br>
     {% endfor %}
 </ul>
 {% else %}
     <p>No orders to view.</p>
 {% endif %}
-
-{% if starts %} 
-<li>
-    {{ starts.starter }}
-</li>
-{% endif %}
-{% if table %} 
-<li>
-    {{ table }}
-</li>
-{% endif %} 
-{% if checkstart %} 
-  {% for start in checkstart %}
-        <li>
-            {{ checkstart.starter }}
-        </li>
-        {% endfor %} 
-        {% else %}
-        <p>No orders to view.</p>
-    {% endif %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+</html>
