@@ -4,6 +4,36 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     </head>
     <body>
+        {% if waiting %} 
+        <ul>
+            {% for dish in waiting %}   
+            <li>
+                {{ dish.table_number }}
+            </li>
+            <li>
+                {{ dish.Date }}
+            </li>
+            <li>
+                {{ dish.ref }}
+            </li>
+            <li>
+                {{ dish.starters }}
+                
+           
+            </li>
+            <li>
+                {{ dish.mains }}
+                
+            </li> 
+            <li>
+                {{ dish.deserts }}
+                
+            </li><br>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No orders to waiting for service.</p>
+        {% endif %}
 {% if order_list %} 
 <ul>
     {% for order in order_list %}   

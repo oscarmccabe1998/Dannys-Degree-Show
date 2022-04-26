@@ -23,44 +23,7 @@ class Order(models.Model):  #class to pass data to database
         Table15 = 15
         Table16 = 16
 
-    STARTER = (
-        ('Soup of the day', 'Soup of the day'),     #Menu options to make data entry on the back end easier 
-        ('Roasted red pepper hummus', 'Roasted red pepper hummus'),
-        ('Charcuterie Board', 'Charcuterie Board'),
-        ('Arbroath Smokie Risotto', 'Arbroath Smokie Risotto'),
-        ('Hot Wings', 'Hot Wings'),
-        ('Duck Leg & Fig Terrine', 'Duck Leg & Fig Terrine'),
-        ('Beet Root Salad', 'Beet Root Salad'),
-    )
-
-    MAIN = (
-        ('Ribeye Steak', 'Ribeye Steak'),
-        ('Sirloin Steak', 'Sirloin Steak'),
-        ('Cheese Burger', 'Cheese Burger'),
-        ('Black And Blue Burger', 'Black And Blue Burger'),
-        ('Moving Mountain', 'Moving Mountain'),
-        ('The Baxter', 'The Baxter'),
-        ('Miss Daisy', 'Miss Daisy'),
-        ('Beer Battered, Haddock', 'Beer Battered, Haddock'),
-        ('Cod Fillet', 'Cod Fillet'),
-        ('Perthshire Duck Breast', 'Perthshire Duck Breast'),
-        ('Burgundy Beef', 'Burgundy Beef'),
-        ('Mushroom & Tarragon Linguine', 'Mushroom & Tarragon Linguine'),
-        ('Spiced Polenta', 'Spiced Polenta'),
-        ('Mac and Cheese', 'Mac and Cheese'),
-
-    )
-
-    DESERT = (
-        ('Bread & Butter Pudding', 'Bread & Butter Pudding'),
-        ('Praline Chocolate Tart', 'Praline Chocolate Tart'),
-        ('Lavender Panna Cotta', 'Lavender Panna Cotta'),
-        ('Sticky Toffee Sundae', 'Sticky Toffee Sundae'),
-        ('Clarckies Ice Cream', 'Clarckies Ice Cream'),
-        ('Cheese Board', 'Cheese Board'),
-    )
-
-
+    
     Date = models.DateTimeField(default=datetime.datetime.now)      #all feilds that will be in the database table
     ref = models.CharField(max_length=200, blank=True)
     table_number = models.IntegerField(choices=TableChoice.choices, default='1', primary_key=True)
@@ -72,6 +35,7 @@ class Order(models.Model):  #class to pass data to database
     deserts_ready = models.BooleanField(default=False)
     waiting_for_service = models.BooleanField(default=False)
     pending = models.BooleanField(default=False)
+    served = models.BooleanField(default=False)
 
     def __str__(self):
         return self.mains
