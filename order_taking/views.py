@@ -92,19 +92,55 @@ def update_starter(request, table_number):
         pixels[20] = ((0, 0, 0, 255))
         pixels.show()
     if starter.table_number == 2:
-        pixels[44] = ((0, 0, 0, 255))
-        pixels[54] = ((0, 0, 0, 255))
+        pixels[53] = ((0, 0, 0, 255))
+        pixels[63] = ((0, 0, 0, 255))
         pixels.show()
     return redirect(index)
 
 def update_main(request, table_number):
+    pixel_pin = board.D18
+    num_pixels = 84
+    ORDER = neopixel.RGBW
+
+    pixels = neopixel.NeoPixel(
+        pixel_pin, num_pixels, brightness=2.0, auto_write=False, pixel_order=ORDER
+    )
     main = Order.objects.get(pk=table_number)
     response = Order.objects.filter(pk = table_number).update(mains_ready=True)
+    if main.table_number == 1:
+        pixels[10] = ((0, 0, 0, 255))
+        pixels[20] = ((0, 0, 0, 255))
+        pixels[30] = ((0, 0, 0, 255))
+        pixels.show()
+    if main.table_number == 2:
+        pixels[53] = ((0, 0, 0, 255))
+        pixels[63] = ((0, 0, 0, 255))
+        pixels[73] = ((0, 0, 0, 255))
+        pixels.show()
     return redirect(index)
 
 def update_desert(request, table_number):
+    pixel_pin = board.D18
+    num_pixels = 84
+    ORDER = neopixel.RGBW
+
+    pixels = neopixel.NeoPixel(
+        pixel_pin, num_pixels, brightness=2.0, auto_write=False, pixel_order=ORDER
+    )
     desert = Order.objects.get(pk=table_number)
     response = Order.objects.filter(pk = table_number).update(deserts_ready=True)
+    if desert.table_number == 1:
+        pixels[10] = ((0, 0, 0, 255))
+        pixels[20] = ((0, 0, 0, 255))
+        pixels[30] = ((0, 0, 0, 255))
+        pixels[40] = ((0, 0, 0, 255))
+        pixels.show()
+    if desert.table_number == 2:
+        pixels[53] = ((0, 0, 0, 255))
+        pixels[63] = ((0, 0, 0, 255))
+        pixels[73] = ((0, 0, 0, 255))
+        pixels[83] = ((0, 0, 0, 255))
+        pixels.show()
     return redirect(index)
 
 def update_served(request):
