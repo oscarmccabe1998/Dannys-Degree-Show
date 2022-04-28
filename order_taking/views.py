@@ -88,6 +88,7 @@ def update_starter(request, table_number):
     starter = Order.objects.get(pk=table_number)
     response = Order.objects.filter(pk = table_number).update(starter_ready=True)
     if starter.table_number == 1:
+        pixel[10] = ((0, 0, 0, 255))
         pixels[20] = ((0, 0, 0, 255))
         pixels.show()
     return redirect(index)
