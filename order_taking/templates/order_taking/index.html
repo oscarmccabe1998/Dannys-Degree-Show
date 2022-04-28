@@ -18,10 +18,15 @@
                 display: inline-block;
                 width: 100%;
             }
+            li {
+                list-style-type: none;
+                font-size: 110%;
+                border: 1px solid black;
+            }
         </style>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-3" style="background-color:yellow;">
+                <!--<div class="col-sm-6" style="background-color:yellow;">-->
         {% if waiting %} 
         <ul>
             {% for dish in waiting %}   
@@ -50,7 +55,9 @@
             {% endfor %}
         </ul>
         {% else %}
-            <p>No orders to waiting for service.</p>
+        <table>
+           <li> No orders to waiting for service.</li>
+        </table>
         {% endif %}
         <ul>
         </div>
@@ -62,26 +69,35 @@
     {% for order in order_list %} 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3" style="background-color:yellow;">  
+            <!--<div class="col-sm-3" style="background-color:yellow;">-->  
     <li>
+        Table Number<br>
+   
         {{ order.table_number }}
     </li>
     <li>
+        Table Number and info 
+        <br>
         {{ order.Date }}
-    </li>
-    <li>
+        <br>
         {{ order.ref }}
     </li>
     <li>
+        Starter
+    <br>
         {{ order.starters }}
         
     <a href="{% url 'update_starter' order.table_number %}">Serve</a>
     </li>
     <li>
+        Main
+    <br>
         {{ order.mains }}
         <a href="{% url 'update_main' order.table_number %}">Serve</a>
     </li> 
     <li>
+        Desert
+    <br>
         {{ order.deserts }}
         <a href="{% url 'update_desert' order.table_number %}">Serve</a>
     </li><br>
