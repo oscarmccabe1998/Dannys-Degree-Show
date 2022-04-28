@@ -4,11 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bevacqua/dragula@3.7.3/dist/dragula.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/bevacqua/dragula@3.7.3/dist/dragula.min.js"></script>
+
  
 </head>
-    <body>
+    <body onload="init()">
         <style>
             div.container-fluid {
                 display: inline-block;
@@ -48,7 +51,7 @@
         <br><br>
         
             <div class="container-fluid">
-                <div class="row">
+                <div class="row" id="drag">
                 
             
                 
@@ -103,7 +106,7 @@
 
 
     {% for order in order_list %} 
-    <div class="col-lg-3">
+    <div class="col-lg-3" draggable="true">
     
     
         
@@ -149,7 +152,11 @@
 {% else %}
     <p>No orders to view.</p>
 {% endif %}
-
+<script>
+    function init(){
+        dragula([document.querySelector("#drag")]);
+    }
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
 </html>
