@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 import time
 import datetime
-import Board
+import board
 import neopixel
 
 
@@ -89,6 +89,7 @@ def update_starter(request, table_number):
     response = Order.objects.filter(pk = table_number).update(starter_ready=True)
     if starter.table_number == 1:
         pixels[20] = ((0, 0, 0, 255))
+        pixels.show
     return redirect(index)
 
 def update_main(request, table_number):
@@ -120,5 +121,6 @@ def LED_control(request):
 
     pixels = neopixel.NeoPixel(
         pixel_pin, num_pixels, brightness=2.0, auto_write=False, pixel_order=ORDER
+
     )
     return redirect(index)
