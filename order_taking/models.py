@@ -36,6 +36,7 @@ class Order(models.Model):  #class to pass data to database
     waiting_for_service = models.BooleanField(default=False)
     pending = models.BooleanField(default=False)
     served = models.BooleanField(default=False)
+    cleared = models.BooleanField(default=False)
 
     def __str__(self):
         return self.mains

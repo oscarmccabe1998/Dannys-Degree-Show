@@ -6,6 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 import time
 import datetime
+import Board
+import neopixel
+
 
 def index(request):
     order_list = []
@@ -26,12 +29,7 @@ def index(request):
             if dish2.served==False:
                 table_number = dish2.table_number
                 Order.objects.filter(pk=table_number).update(served=True)
-                total_seconds = 1
-                while total_seconds > 0:
-                    timer = datetime.timedelta(seconds = total_seconds)
-                    print(timer, end="/r")
-                    time.sleep(1)
-                    total_seconds -= 1
+
                 check = Order.objects.filter(pending=True).count()
                 new_order_list = []
                 if check < 0:
@@ -41,9 +39,12 @@ def index(request):
                     for new in new_order_query:
                         new_order_list.append(new.table_number)
                     Order.objects.filter(pk=new_order_list[0]).update(pending=False)
-
+                    #return(update_served(request))
             else:
-                pass     
+                pass  
+
+            #if dish2.served == True:
+            #    return(update_served(request))
     
     for dish1 in ready_query:
         if dish1.starter_ready == True and dish1.mains_ready == True and dish1.deserts_ready == True and dish1.waiting_for_service==False :
@@ -77,8 +78,17 @@ def index(request):
     return render(request, 'order_taking/index.html', context)
     
 def update_starter(request, table_number):
+    pixel_pin = board.D18
+    num_pixels = 84
+    ORDER = neopixel.RGBW
+
+    pixels = neopixel.NeoPixel(
+        pixel_pin, num_pixels, brightness=2.0, auto_write=False, pixel_order=ORDER
+    )
     starter = Order.objects.get(pk=table_number)
     response = Order.objects.filter(pk = table_number).update(starter_ready=True)
+    if starter.table_number == 1:
+        pixels[20] = ((0, 0, 0, 255))
     return redirect(index)
 
 def update_main(request, table_number):
@@ -92,18 +102,23 @@ def update_desert(request, table_number):
     return redirect(index)
 
 def update_served(request):
-    ready_query = Order.objects.filter(pending=False)
-    for dish1 in ready_query:
-        if dish1.starter_ready == True and dish1.mains_ready == True and dish1.deserts_ready == True and dish1.waiting_for_service==True and dish1.served==False:
-                table_number = dish1.table_number
-                total_seconds = 3
-                while total_seconds > 0:
-                    timer = datetime.timedelta(seconds = total_seconds)
-                    print(timer, end="/r")
-                    time.sleep(1)
-                    total_seconds -= 1
-                    Order.objects.filter(pk=table_number).update(served=True)
+
+    total_seconds = 300
+    
+    while total_seconds > 0:
+        timer = datetime.timedelta(seconds = total_seconds)
+        print(timer, end="/r")
+        time.sleep(1)
+        total_seconds -= 1
+                    
     return redirect(index)
 
+def LED_control(request):
+    pixel_pin = board.D18
+    num_pixels = 84
+    ORDER = neopixel.RGBW
 
-
+    pixels = neopixel.NeoPixel(
+        pixel_pin, num_pixels, brightness=2.0, auto_write=False, pixel_order=ORDER
+    )
+    return redirect(index)
