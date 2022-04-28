@@ -89,7 +89,7 @@ def update_starter(request, table_number):
     response = Order.objects.filter(pk = table_number).update(starter_ready=True)
     if starter.table_number == 1:
         pixels[20] = ((0, 0, 0, 255))
-        pixels.show
+        pixels.show()
     return redirect(index)
 
 def update_main(request, table_number):
