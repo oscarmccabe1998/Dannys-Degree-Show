@@ -1,26 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bevacqua/dragula@3.7.3/dist/dragula.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/bevacqua/dragula@3.7.3/dist/dragula.min.js"></script>
+
+ 
+</head>
+    <body onload="init()">
+        <style>
+            body {
+                font-weight: bold;
+            }
+            div.container-fluid {
+                display: inline-block;
+                
+            }
+            div.container {
+                display: inline-block;
+                margin: auto;
+            }
+            div {
+                content:"";
+                display: inline-block;
+                width: 100%;
+            }
+            li {
+                list-style-type: none;
+                font-size: 109%;
+                border: 1px solid black;
+                
+            }
+            table {
+                margin: 0 auto;
+            }
+            ul {
+                display: inline-block;
+            }
+            .active {
+                background-color: lightgreen;
+            }
+            .True {
+                background-color: lightgreen;
+            }
+            .False {
+                background-color: white;
+            }
+            .table_selection {
+                background-color: orange;
+            }
+        </style>
+        <br>
+        
+            <div class="container-fluid">
+                <div class="row" id="drag">
+                
+            
+                
+        {% if waiting %} 
+        
+        
+            {% for dish in waiting %}   
+            <div class="col-lg-3">
+            <li class="active">
+                Table Number<br>
+                {{ dish.table_number }}
+            </li>
+            <li class="active">
+                Info
+                <br>
+                {{ dish.Date }}
+            <br>
+                {{ dish.ref }}
+            </li>
+            <li class="active">
+                Starter<br>
+                {{ dish.starters }}
+                
+           
+            </li>
+            <li class="active">
+                Main 
+                <br>
+                {{ dish.mains }}
+                
+            </li> 
+            <li class="active">
+                Desert
+                <br>
+                {{ dish.deserts }}
+                
+            </li><br>
+            <script>
+                setInterval(function() {
+                  window.location.reload();
+                }, 300000);
+
+            </script>
+        </div>
+            {% endfor %}
+        </ul>
+        <ul>
+        {% else %}
+        <div class="col-lg-3">
+           <li> No orders waiting for service.</li>
+            </div>
+        {% endif %}
+    </ul>
+        
+    
+       
 {% if order_list %} 
-<ul>
-    {% for order in order_list %}   <!--this is where the front end will be developed this is currently debug stuff-->
-    <li>
+
+
+    {% for order in order_list %} 
+    <div class="col-lg-3" draggable="true" onclick="select{{ order.table_number }}()">
+        <script>
+            function select{{ order.table_number }}(){
+                document.getElementById("{{ order.table_number }}").classList.add('table_selection');
+                document.getElementById("starter{{ order.table_number }}").classList.add('serveStarter');
+                document.getElementById("main{{ order.table_number }}").classList.add('serveMain');
+                document.getElementById("desert{{ order.table_number }}").classList.add('serveDesert');
+                
+            }
+        </script>
+    
+        
+            <!--<div class="col-sm-3" style="background-color:yellow;">-->  
+    <li id="{{ order.table_number }}">
+
+        Table Number<br>
+   
         {{ order.table_number }}
     </li>
     <li>
+        Info 
+        <br>
         {{ order.Date }}
-    </li>
-    <li>
+        <br>
         {{ order.ref }}
     </li>
-    <li>
+    <li class="{{ order.starter_ready }}">
+        Starter
+    <br>
         {{ order.starters }}
+        
+    <a href="{% url 'update_starter' order.table_number %}" id="starter{{ order.table_number }}">Serve</a>
     </li>
-    <li>
+    <li class="{{ order.mains_ready }}">
+        Main
+    <br>
         {{ order.mains }}
+        <a href="{% url 'update_main' order.table_number %}" id="main{{ order.table_number }}">Serve</a>
     </li> 
-    <li>
+    <li class="{{ order.deserts_ready }}">
+        Desert
+    <br>
         {{ order.deserts }}
+        <a href="{% url 'update_desert' order.table_number %}" id="desert{{ order.table_number }}">Serve</a>
     </li><br>
+</div>
+
+
     {% endfor %}
+</div>
+</div>
 </ul>
 {% else %}
     <p>No orders to view.</p>
 {% endif %}
+
+<script>
+    function init(){
+        dragula([document.querySelector("#drag")]);
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+</html>
