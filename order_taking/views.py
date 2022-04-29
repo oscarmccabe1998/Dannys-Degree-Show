@@ -11,6 +11,13 @@ import neopixel
 #todo js timer for waiting for service, try and get buttons working, change font to bold in the HTML 
 
 def index(request):
+    pixel_pin = board.D18
+    num_pixels = 84
+    ORDER = neopixel.RGBW
+
+    pixels = neopixel.NeoPixel(
+        pixel_pin, num_pixels, brightness=2.0, auto_write=False, pixel_order=ORDER
+    )
     order_list = []
     waiting = []
     test = '0'
