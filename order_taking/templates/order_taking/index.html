@@ -118,7 +118,7 @@
 
 
     {% for order in order_list %} 
-    <div class="col-lg-3" draggable="true" onload="select">
+    <div class="col-lg-3" draggable="true" oclick="select()">
     
     
         
@@ -126,8 +126,8 @@
     <li id="{{ order.table_number }}">
         <script>
             function select(){
-                document.getElementById("{{ order.table_number }}")
-                element.addEventListener("click", element.classList.add("table_selection"))
+                document.getElementById("{{ order.table_number }}").classList.add('table_selection')
+                
             }
         </script>
         Table Number<br>
