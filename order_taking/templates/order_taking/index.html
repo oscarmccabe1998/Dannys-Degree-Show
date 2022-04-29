@@ -122,7 +122,9 @@
         <script>
             function select{{ order.table_number }}(){
                 document.getElementById("{{ order.table_number }}").classList.add('table_selection');
-                alert("test");
+                document.getElementById("starter{{ order.table_number }}").classList.add('serveStarter');
+                document.getElementById("main{{ order.table_number }}").classList.add('serveMain');
+                document.getElementById("desert{{ order.table_number }}").classList.add('serveDesert');
                 
             }
         </script>
@@ -147,19 +149,19 @@
     <br>
         {{ order.starters }}
         
-    <a href="{% url 'update_starter' order.table_number %}">Serve</a>
+    <a href="{% url 'update_starter' order.table_number %}" id="starter{{ order.table_number }}">Serve</a>
     </li>
     <li class="{{ order.mains_ready }}">
         Main
     <br>
         {{ order.mains }}
-        <a href="{% url 'update_main' order.table_number %}">Serve</a>
+        <a href="{% url 'update_main' order.table_number %}" id="main{{ order.table_number }}">Serve</a>
     </li> 
     <li class="{{ order.deserts_ready }}">
         Desert
     <br>
         {{ order.deserts }}
-        <a href="{% url 'update_desert' order.table_number %}">Serve</a>
+        <a href="{% url 'update_desert' order.table_number %}" id="desert{{ order.table_number }}">Serve</a>
     </li><br>
 </div>
 
