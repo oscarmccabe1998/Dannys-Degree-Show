@@ -50,6 +50,9 @@
             .False {
                 background-color: white;
             }
+            .table_selection {
+                background-color: orange;
+            }
         </style>
         <br>
         
@@ -115,12 +118,18 @@
 
 
     {% for order in order_list %} 
-    <div class="col-lg-3" draggable="true">
+    <div class="col-lg-3" draggable="true" onload="select">
     
     
         
             <!--<div class="col-sm-3" style="background-color:yellow;">-->  
-    <li>
+    <li id="{{ order.table_number %}}">
+        <script>
+            function select(){
+                document.getElementById("{{ order.table_number }}")
+                element.addEventListener("click", element.classList.add("table_selection"))
+            }
+        </script>
         Table Number<br>
    
         {{ order.table_number }}
