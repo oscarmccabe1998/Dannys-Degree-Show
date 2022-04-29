@@ -8,7 +8,7 @@ import time
 import datetime
 import board
 import neopixel
-#todo js timer for waiting for service, try and get buttons working, change font to bold in the HTML 
+#try and get buttons working,  
 
 def index(request):
     pixel_pin = board.D18
