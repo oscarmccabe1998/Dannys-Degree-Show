@@ -39,12 +39,11 @@ def index(request):
                     for new in new_order_query:
                         new_order_list.append(new.table_number)
                     Order.objects.filter(pk=new_order_list[0]).update(pending=False)
-                    #return(update_served(request))
+                    
             else:
                 pass  
 
-            #if dish2.served == True:
-            #    return(update_served(request))
+            
     
     for dish1 in ready_query:
         if dish1.starter_ready == True and dish1.mains_ready == True and dish1.deserts_ready == True and dish1.waiting_for_service==False :
@@ -58,8 +57,68 @@ def index(request):
 
     template = loader.get_template('order_taking/index.html')
 
+    LED_starter_query = Order.objects.filter(starter_ready=True)
+    for iterate in LED_starter_query:
+        if iterate.table_number == 1:
+            pixels[10] = ((0, 0, 0, 255))
+            pixels[20] = ((0, 0, 0, 255))
+            pixels.show()
+        elif iterate.table_number == 2:
+            pixels[53] = ((0, 0, 0, 255))
+            pixels[63] = ((0, 0, 0, 255))
+            pixels.show()
+        elif iterate.table_number ==1 and iterate.table_number == 2:
+            pixels[10] = ((0, 0, 0, 255))
+            pixels[20] = ((0, 0, 0, 255))
+            pixels[53] = ((0, 0, 0, 255))
+            pixels[63] = ((0, 0, 0, 255))
+            pixels.show()
 
+    LED_main_query = Order.objects.filter(mains_ready=True)
+    for iterate in LED_main_query:
+        if iterate.table_number == 1:
+            pixels[10] = ((0, 0, 0, 255))
+            pixels[20] = ((0, 0, 0, 255))
+            pixels[30] = ((0, 0, 0, 255))
+            pixels.show()
+        elif iterate.table_number == 2:
+            pixels[53] = ((0, 0, 0, 255))
+            pixels[63] = ((0, 0, 0, 255))
+            pixels[73] = ((0, 0, 0, 255))
+            pixels.show()
+        elif iterate.table_number ==1 and iterate.table_number == 2:
+            pixels[10] = ((0, 0, 0, 255))
+            pixels[20] = ((0, 0, 0, 255))
+            pixels[30] = ((0, 0, 0, 255))
+            pixels[53] = ((0, 0, 0, 255))
+            pixels[63] = ((0, 0, 0, 255))
+            pixels[73] = ((0, 0, 0, 255))
+            pixels.show()
 
+    LED_desert_query = Order.objects.filter(deserts_ready=True)
+    for iterate in LED_desert_query:
+        if iterate.table_number == 1:
+            pixels[10] = ((0, 0, 0, 255))
+            pixels[20] = ((0, 0, 0, 255))
+            pixels[30] = ((0, 0, 0, 255))
+            pixels[40] = ((0, 0, 0, 255))
+            pixels.show()
+        elif iterate.table_number == 2:
+            pixels[53] = ((0, 0, 0, 255))
+            pixels[63] = ((0, 0, 0, 255))
+            pixels[73] = ((0, 0, 0, 255))
+            pixels[83] = ((0, 0, 0, 255))
+            pixels.show()
+        elif iterate.table_number ==1 and iterate.table_number == 2:
+            pixels[10] = ((0, 0, 0, 255))
+            pixels[20] = ((0, 0, 0, 255))
+            pixels[30] = ((0, 0, 0, 255))
+            pixels[40] = ((0, 0, 0, 255))
+            pixels[53] = ((0, 0, 0, 255))
+            pixels[63] = ((0, 0, 0, 255))
+            pixels[73] = ((0, 0, 0, 255))
+            pixels[83] = ((0, 0, 0, 255))
+            pixels.show()
 
 
     query = Order.objects.filter(pending=False).order_by('table_number')
