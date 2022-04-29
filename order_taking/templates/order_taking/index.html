@@ -124,13 +124,7 @@
         
             <!--<div class="col-sm-3" style="background-color:yellow;">-->  
     <li id="{{ order.table_number }}">
-        <script>
-            function select(){
-                document.getElementById("{{ order.table_number }}").classList.add('table_selection');
-                alert("test");
-                
-            }
-        </script>
+
         Table Number<br>
    
         {{ order.table_number }}
@@ -171,6 +165,13 @@
 {% else %}
     <p>No orders to view.</p>
 {% endif %}
+<script>
+    function select(){
+        document.getElementById("{{ order.table_number }}").classList.add('table_selection');
+        alert("test");
+        
+    }
+</script>
 <script>
     function init(){
         dragula([document.querySelector("#drag")]);
